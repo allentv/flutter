@@ -17,9 +17,10 @@ void main() {
     });
 
     testWidgets('finds Text.rich widgets', (WidgetTester tester) async {
-      await tester.pumpWidget(_boilerplate(
-        const Text.rich(
-          TextSpan(text: 't', children: <TextSpan>[
+      await tester.pumpWidget(_boilerplate(const Text.rich(
+        TextSpan(
+          text: 't',
+          children: <TextSpan>[
             TextSpan(text: 'e'),
             TextSpan(text: 'st'),
           ],
@@ -31,11 +32,13 @@ void main() {
   });
 
   group('semantics', () {
-    testWidgets('Throws StateError if semantics are not enabled', (WidgetTester tester) async {
+    testWidgets('Throws StateError if semantics are not enabled',
+        (WidgetTester tester) async {
       expect(() => find.bySemanticsLabel('Add'), throwsStateError);
     }, semanticsEnabled: false);
 
-    testWidgets('finds Semantically labeled widgets', (WidgetTester tester) async {
+    testWidgets('finds Semantically labeled widgets',
+        (WidgetTester tester) async {
       final SemanticsHandle semanticsHandle = tester.ensureSemantics();
       await tester.pumpWidget(_boilerplate(
         Semantics(
@@ -51,7 +54,8 @@ void main() {
       semanticsHandle.dispose();
     });
 
-    testWidgets('finds Semantically labeled widgets by RegExp', (WidgetTester tester) async {
+    testWidgets('finds Semantically labeled widgets by RegExp',
+        (WidgetTester tester) async {
       final SemanticsHandle semanticsHandle = tester.ensureSemantics();
       await tester.pumpWidget(_boilerplate(
         Semantics(
@@ -67,18 +71,19 @@ void main() {
       semanticsHandle.dispose();
     });
 
-    testWidgets('finds Semantically labeled widgets without explicit Semantics', (WidgetTester tester) async {
+    testWidgets('finds Semantically labeled widgets without explicit Semantics',
+        (WidgetTester tester) async {
       final SemanticsHandle semanticsHandle = tester.ensureSemantics();
-      await tester.pumpWidget(_boilerplate(
-        const SimpleCustomSemanticsWidget('Foo')
-      ));
+      await tester
+          .pumpWidget(_boilerplate(const SimpleCustomSemanticsWidget('Foo')));
       expect(find.bySemanticsLabel('Foo'), findsOneWidget);
       semanticsHandle.dispose();
     });
   });
 
   group('hitTestable', () {
-    testWidgets('excludes non-hit-testable widgets', (WidgetTester tester) async {
+    testWidgets('excludes non-hit-testable widgets',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         _boilerplate(IndexedStack(
           sizing: StackFit.expand,
@@ -86,20 +91,21 @@ void main() {
             GestureDetector(
               key: const ValueKey<int>(0),
               behavior: HitTestBehavior.opaque,
-              onTap: () { },
+              onTap: () {},
               child: const SizedBox.expand(),
             ),
             GestureDetector(
               key: const ValueKey<int>(1),
               behavior: HitTestBehavior.opaque,
-              onTap: () { },
+              onTap: () {},
               child: const SizedBox.expand(),
             ),
           ],
         )),
       );
       expect(find.byType(GestureDetector), findsNWidgets(2));
-      final Finder hitTestable = find.byType(GestureDetector).hitTestable(at: Alignment.center);
+      final Finder hitTestable =
+          find.byType(GestureDetector).hitTestable(at: Alignment.center);
       expect(hitTestable, findsOneWidget);
       expect(tester.widget(hitTestable).key, const ValueKey<int>(0));
     });
@@ -125,10 +131,15 @@ void main() {
     // candidates, it should find 1 instead of 2. If the _LastFinder wasn't
     // correctly chained after the descendant's candidates, the last element
     // with a Text widget would have been 2.
-    final Text text = find.descendant(
-      of: find.byKey(key1),
-      matching: find.byType(Text),
-    ).last.evaluate().single.widget as Text;
+    final Text text = find
+        .descendant(
+          of: find.byKey(key1),
+          matching: find.byType(Text),
+        )
+        .last
+        .evaluate()
+        .single
+        .widget as Text;
 
     expect(text.data, '1');
   });
@@ -147,7 +158,8 @@ class SimpleCustomSemanticsWidget extends LeafRenderObjectWidget {
   final String label;
 
   @override
-  RenderObject createRenderObject(BuildContext context) => SimpleCustomSemanticsRenderObject(label);
+  RenderObject createRenderObject(BuildContext context) =>
+      SimpleCustomSemanticsRenderObject(label);
 }
 
 class SimpleCustomSemanticsRenderObject extends RenderBox {
@@ -161,6 +173,8 @@ class SimpleCustomSemanticsRenderObject extends RenderBox {
   @override
   void describeSemanticsConfiguration(SemanticsConfiguration config) {
     super.describeSemanticsConfiguration(config);
-    config..label = label..textDirection = TextDirection.ltr;
+    config
+      ..label = label
+      ..textDirection = TextDirection.ltr;
   }
 }

@@ -19,8 +19,10 @@ void main() {
 
   group(AutomatedTestWidgetsFlutterBinding, () {
     test('allows setting defaultTestTimeout to 5 minutes', () {
-      final AutomatedTestWidgetsFlutterBinding binding = AutomatedTestWidgetsFlutterBinding();
-      binding.defaultTestTimeout = const test_package.Timeout(Duration(minutes: 5));
+      final AutomatedTestWidgetsFlutterBinding binding =
+          AutomatedTestWidgetsFlutterBinding();
+      binding.defaultTestTimeout =
+          const test_package.Timeout(Duration(minutes: 5));
       expect(binding.defaultTestTimeout.duration, const Duration(minutes: 5));
     });
   });

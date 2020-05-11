@@ -26,12 +26,16 @@ void main() {
     await tester.idle();
 
     for (final String platform in platforms) {
-      await tester.sendKeyEvent(LogicalKeyboardKey.shiftLeft, platform: platform);
+      await tester.sendKeyEvent(LogicalKeyboardKey.shiftLeft,
+          platform: platform);
       await tester.sendKeyEvent(LogicalKeyboardKey.shift, platform: platform);
-      await tester.sendKeyDownEvent(LogicalKeyboardKey.keyA, platform: platform);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.keyA,
+          platform: platform);
       await tester.sendKeyUpEvent(LogicalKeyboardKey.keyA, platform: platform);
-      await tester.sendKeyDownEvent(LogicalKeyboardKey.numpad1, platform: platform);
-      await tester.sendKeyUpEvent(LogicalKeyboardKey.numpad1, platform: platform);
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.numpad1,
+          platform: platform);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.numpad1,
+          platform: platform);
       await tester.idle();
 
       expect(events.length, 8);
@@ -43,7 +47,10 @@ void main() {
           expect(events[i].runtimeType, equals(RawKeyUpEvent));
         }
         if (i < 4) {
-          expect(events[i].data.isModifierPressed(ModifierKey.shiftModifier, side: KeyboardSide.left), equals(isEven));
+          expect(
+              events[i].data.isModifierPressed(ModifierKey.shiftModifier,
+                  side: KeyboardSide.left),
+              equals(isEven));
         }
       }
       events.clear();

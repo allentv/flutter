@@ -232,7 +232,9 @@ void main() {
         ),
       );
 
-      for (int resultIndex = 0; resultIndex < offsetResults.length; resultIndex += 1) {
+      for (int resultIndex = 0;
+          resultIndex < offsetResults.length;
+          resultIndex += 1) {
         final TestDragData testResult = offsetResults[resultIndex];
         await tester.drag(
           find.text('test'),
@@ -244,21 +246,23 @@ void main() {
           testResult.expectedOffsets.length,
           dragOffsets.length,
           reason:
-            'There is a difference in the number of expected and actual split offsets for the drag with:\n'
-            'Touch Slop: ${testResult.slop}\n'
-            'Delta:      ${testResult.dragDistance}\n',
+              'There is a difference in the number of expected and actual split offsets for the drag with:\n'
+              'Touch Slop: ${testResult.slop}\n'
+              'Delta:      ${testResult.dragDistance}\n',
         );
-        for (int valueIndex = 0; valueIndex < offsetResults[resultIndex].expectedOffsets.length; valueIndex += 1) {
-          expect(
-            testResult.expectedOffsets[valueIndex],
-            offsetMoreOrLessEquals(dragOffsets[valueIndex]),
-            reason:
-              'There is a difference in the expected and actual value of the ' +
-              (valueIndex == 2 ? 'first' : valueIndex == 3 ? 'second' : 'third') +
-              ' split offset for the drag with:\n'
-              'Touch slop: ${testResult.slop}\n'
-              'Delta:      ${testResult.dragDistance}\n'
-          );
+        for (int valueIndex = 0;
+            valueIndex < offsetResults[resultIndex].expectedOffsets.length;
+            valueIndex += 1) {
+          expect(testResult.expectedOffsets[valueIndex],
+              offsetMoreOrLessEquals(dragOffsets[valueIndex]),
+              reason:
+                  'There is a difference in the expected and actual value of the ' +
+                      (valueIndex == 2
+                          ? 'first'
+                          : valueIndex == 3 ? 'second' : 'third') +
+                      ' split offset for the drag with:\n'
+                          'Touch slop: ${testResult.slop}\n'
+                          'Delta:      ${testResult.dragDistance}\n');
         }
         dragOffsets.clear();
       }
@@ -274,9 +278,12 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Listener(
-            onPointerDown: (PointerDownEvent event) => logs.add('down ${event.buttons}'),
-            onPointerMove: (PointerMoveEvent event) => logs.add('move ${event.buttons}'),
-            onPointerUp: (PointerUpEvent event) => logs.add('up ${event.buttons}'),
+            onPointerDown: (PointerDownEvent event) =>
+                logs.add('down ${event.buttons}'),
+            onPointerMove: (PointerMoveEvent event) =>
+                logs.add('move ${event.buttons}'),
+            onPointerUp: (PointerUpEvent event) =>
+                logs.add('up ${event.buttons}'),
             child: const Text('test'),
           ),
         ),
@@ -285,7 +292,7 @@ void main() {
       await tester.tap(find.text('test'), buttons: kSecondaryMouseButton);
 
       const String b = '$kSecondaryMouseButton';
-      for(int i = 0; i < logs.length; i++) {
+      for (int i = 0; i < logs.length; i++) {
         if (i == 0)
           expect(logs[i], 'down $b');
         else if (i != logs.length - 1)
@@ -305,9 +312,12 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Listener(
-            onPointerDown: (PointerDownEvent event) => logs.add('down ${event.buttons}'),
-            onPointerMove: (PointerMoveEvent event) => logs.add('move ${event.buttons}'),
-            onPointerUp: (PointerUpEvent event) => logs.add('up ${event.buttons}'),
+            onPointerDown: (PointerDownEvent event) =>
+                logs.add('down ${event.buttons}'),
+            onPointerMove: (PointerMoveEvent event) =>
+                logs.add('move ${event.buttons}'),
+            onPointerUp: (PointerUpEvent event) =>
+                logs.add('up ${event.buttons}'),
             child: const Text('test'),
           ),
         ),
@@ -329,9 +339,12 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Listener(
-            onPointerDown: (PointerDownEvent event) => logs.add('down ${event.buttons}'),
-            onPointerMove: (PointerMoveEvent event) => logs.add('move ${event.buttons}'),
-            onPointerUp: (PointerUpEvent event) => logs.add('up ${event.buttons}'),
+            onPointerDown: (PointerDownEvent event) =>
+                logs.add('down ${event.buttons}'),
+            onPointerMove: (PointerMoveEvent event) =>
+                logs.add('move ${event.buttons}'),
+            onPointerUp: (PointerUpEvent event) =>
+                logs.add('up ${event.buttons}'),
             child: const Text('test'),
           ),
         ),
@@ -341,7 +354,7 @@ void main() {
       await tester.pumpAndSettle();
 
       const String b = '$kSecondaryMouseButton';
-      for(int i = 0; i < logs.length; i++) {
+      for (int i = 0; i < logs.length; i++) {
         if (i == 0)
           expect(logs[i], 'down $b');
         else if (i != logs.length - 1)
@@ -361,18 +374,22 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Listener(
-            onPointerDown: (PointerDownEvent event) => logs.add('down ${event.buttons}'),
-            onPointerMove: (PointerMoveEvent event) => logs.add('move ${event.buttons}'),
-            onPointerUp: (PointerUpEvent event) => logs.add('up ${event.buttons}'),
+            onPointerDown: (PointerDownEvent event) =>
+                logs.add('down ${event.buttons}'),
+            onPointerMove: (PointerMoveEvent event) =>
+                logs.add('move ${event.buttons}'),
+            onPointerUp: (PointerUpEvent event) =>
+                logs.add('up ${event.buttons}'),
             child: const Text('test'),
           ),
         ),
       );
 
-      await tester.drag(find.text('test'), const Offset(-150.0, 200.0), buttons: kSecondaryMouseButton);
+      await tester.drag(find.text('test'), const Offset(-150.0, 200.0),
+          buttons: kSecondaryMouseButton);
 
       const String b = '$kSecondaryMouseButton';
-      for(int i = 0; i < logs.length; i++) {
+      for (int i = 0; i < logs.length; i++) {
         if (i == 0)
           expect(logs[i], 'down $b');
         else if (i != logs.length - 1)
@@ -392,19 +409,23 @@ void main() {
         Directionality(
           textDirection: TextDirection.ltr,
           child: Listener(
-            onPointerDown: (PointerDownEvent event) => logs.add('down ${event.buttons}'),
-            onPointerMove: (PointerMoveEvent event) => logs.add('move ${event.buttons}'),
-            onPointerUp: (PointerUpEvent event) => logs.add('up ${event.buttons}'),
+            onPointerDown: (PointerDownEvent event) =>
+                logs.add('down ${event.buttons}'),
+            onPointerMove: (PointerMoveEvent event) =>
+                logs.add('move ${event.buttons}'),
+            onPointerUp: (PointerUpEvent event) =>
+                logs.add('up ${event.buttons}'),
             child: const Text('test'),
           ),
         ),
       );
 
-      await tester.fling(find.text('test'), const Offset(-10.0, 0.0), 1000.0, buttons: kSecondaryMouseButton);
+      await tester.fling(find.text('test'), const Offset(-10.0, 0.0), 1000.0,
+          buttons: kSecondaryMouseButton);
       await tester.pumpAndSettle();
 
       const String b = '$kSecondaryMouseButton';
-      for(int i = 0; i < logs.length; i++) {
+      for (int i = 0; i < logs.length; i++) {
         if (i == 0)
           expect(logs[i], 'down $b');
         else if (i != logs.length - 1)

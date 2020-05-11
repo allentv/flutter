@@ -13,7 +13,8 @@ void main() {
     expect(Curves.linear, hasOneLineDescription);
     expect(const SawTooth(3), hasOneLineDescription);
     expect(const Interval(0.25, 0.75), hasOneLineDescription);
-    expect(const Interval(0.25, 0.75, curve: Curves.ease), hasOneLineDescription);
+    expect(
+        const Interval(0.25, 0.75, curve: Curves.ease), hasOneLineDescription);
   });
 
   test('Curve flipped control test', () {
@@ -38,7 +39,8 @@ void main() {
     const double delta = 0.005;
     for (double x = 0.0; x < 1.0 - delta; x += delta) {
       final double deltaY = curve.transform(x) - curve.transform(x + delta);
-      assert(deltaY.abs() < delta * maximumSlope, '${curve.toString()} discontinuous at $x');
+      assert(deltaY.abs() < delta * maximumSlope,
+          '${curve.toString()} discontinuous at $x');
     }
   }
 
@@ -166,8 +168,10 @@ void main() {
     expect(bounds[0], greaterThanOrEqualTo(0.0));
     expect(bounds[1], lessThanOrEqualTo(1.0));
 
-    final double d1 = Curves.decelerate.transform(0.2) - Curves.decelerate.transform(0.0);
-    final double d2 = Curves.decelerate.transform(1.0) - Curves.decelerate.transform(0.8);
+    final double d1 =
+        Curves.decelerate.transform(0.2) - Curves.decelerate.transform(0.0);
+    final double d2 =
+        Curves.decelerate.transform(1.0) - Curves.decelerate.transform(0.8);
     expect(d2, lessThan(d1));
   });
 
@@ -175,20 +179,28 @@ void main() {
     expect(() => const SawTooth(2).transform(-0.0001), throwsAssertionError);
     expect(() => const SawTooth(2).transform(1.0001), throwsAssertionError);
 
-    expect(() => const Interval(0.0, 1.0).transform(-0.0001), throwsAssertionError);
-    expect(() => const Interval(0.0, 1.0).transform(1.0001), throwsAssertionError);
+    expect(() => const Interval(0.0, 1.0).transform(-0.0001),
+        throwsAssertionError);
+    expect(
+        () => const Interval(0.0, 1.0).transform(1.0001), throwsAssertionError);
 
     expect(() => const Threshold(0.5).transform(-0.0001), throwsAssertionError);
     expect(() => const Threshold(0.5).transform(1.0001), throwsAssertionError);
 
-    expect(() => const ElasticInCurve().transform(-0.0001), throwsAssertionError);
-    expect(() => const ElasticInCurve().transform(1.0001), throwsAssertionError);
+    expect(
+        () => const ElasticInCurve().transform(-0.0001), throwsAssertionError);
+    expect(
+        () => const ElasticInCurve().transform(1.0001), throwsAssertionError);
 
-    expect(() => const ElasticOutCurve().transform(-0.0001), throwsAssertionError);
-    expect(() => const ElasticOutCurve().transform(1.0001), throwsAssertionError);
+    expect(
+        () => const ElasticOutCurve().transform(-0.0001), throwsAssertionError);
+    expect(
+        () => const ElasticOutCurve().transform(1.0001), throwsAssertionError);
 
-    expect(() => const Cubic(0.42, 0.0, 0.58, 1.0).transform(-0.0001), throwsAssertionError);
-    expect(() => const Cubic(0.42, 0.0, 0.58, 1.0).transform(1.0001), throwsAssertionError);
+    expect(() => const Cubic(0.42, 0.0, 0.58, 1.0).transform(-0.0001),
+        throwsAssertionError);
+    expect(() => const Cubic(0.42, 0.0, 0.58, 1.0).transform(1.0001),
+        throwsAssertionError);
 
     expect(() => Curves.decelerate.transform(-0.0001), throwsAssertionError);
     expect(() => Curves.decelerate.transform(1.0001), throwsAssertionError);
@@ -203,7 +215,8 @@ void main() {
     expect(() => Curves.bounceInOut.transform(1.0001), throwsAssertionError);
   });
 
-  test('Curve transform method should return 0.0 for t=0.0 and 1.0 for t=1.0', () {
+  test('Curve transform method should return 0.0 for t=0.0 and 1.0 for t=1.0',
+      () {
     expect(const SawTooth(2).transform(0), 0);
     expect(const SawTooth(2).transform(1), 1);
 
@@ -287,10 +300,14 @@ void main() {
       CatmullRomSpline(const <Offset>[Offset.zero, Offset.zero, Offset.zero]);
     }, throwsAssertionError);
     expect(() {
-      CatmullRomSpline(const <Offset>[Offset.zero, Offset.zero, Offset.zero, Offset.zero], tension: -1.0);
+      CatmullRomSpline(
+          const <Offset>[Offset.zero, Offset.zero, Offset.zero, Offset.zero],
+          tension: -1.0);
     }, throwsAssertionError);
     expect(() {
-      CatmullRomSpline(const <Offset>[Offset.zero, Offset.zero, Offset.zero, Offset.zero], tension: 2.0);
+      CatmullRomSpline(
+          const <Offset>[Offset.zero, Offset.zero, Offset.zero, Offset.zero],
+          tension: 2.0);
     }, throwsAssertionError);
   });
   test('CatmullRomSpline interpolates values properly when precomputed', () {
@@ -333,13 +350,18 @@ void main() {
       CatmullRomSpline.precompute(const <Offset>[Offset.zero, Offset.zero]);
     }, throwsAssertionError);
     expect(() {
-      CatmullRomSpline.precompute(const <Offset>[Offset.zero, Offset.zero, Offset.zero]);
+      CatmullRomSpline.precompute(
+          const <Offset>[Offset.zero, Offset.zero, Offset.zero]);
     }, throwsAssertionError);
     expect(() {
-      CatmullRomSpline.precompute(const <Offset>[Offset.zero, Offset.zero, Offset.zero, Offset.zero], tension: -1.0);
+      CatmullRomSpline.precompute(
+          const <Offset>[Offset.zero, Offset.zero, Offset.zero, Offset.zero],
+          tension: -1.0);
     }, throwsAssertionError);
     expect(() {
-      CatmullRomSpline.precompute(const <Offset>[Offset.zero, Offset.zero, Offset.zero, Offset.zero], tension: 2.0);
+      CatmullRomSpline.precompute(
+          const <Offset>[Offset.zero, Offset.zero, Offset.zero, Offset.zero],
+          tension: 2.0);
     }, throwsAssertionError);
   });
   test('CatmullRomCurve interpolates given points correctly', () {
@@ -363,7 +385,8 @@ void main() {
     expect(curve.transform(0.8), closeTo(0.7500423402378034, tolerance));
     expect(curve.transform(1.0), closeTo(1.0, tolerance));
   });
-  test('CatmullRomCurve interpolates given points correctly when precomputed', () {
+  test('CatmullRomCurve interpolates given points correctly when precomputed',
+      () {
     final CatmullRomCurve curve = CatmullRomCurve.precompute(
       const <Offset>[
         Offset(0.2, 0.25),
